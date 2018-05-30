@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
 
+from einvoice.models import Facturador, FacturaElectronica
 
 class ViewTestCase(TestCase):
     """Test suite for the api views."""
@@ -29,12 +30,12 @@ class ViewTestCase(TestCase):
             "dte_version": "1.0",
             "document_id": "FT12345",
             "folio": 12345,
-            "fecha_emision": datetime.now(),
+            "fecha_emision": datetime.now().strftime("%Y-%m-%d"),
             "emisor": int(self.response_emisor.data['id']),
             "receptor": int(self.response_receptor.data['id']),
             "tasa_iva": 17,
             "monto_neto": 18,
-            "extra_data": ""
+            "extra_data": "empty"
         }
 
         self.response_factura = self.client.post(

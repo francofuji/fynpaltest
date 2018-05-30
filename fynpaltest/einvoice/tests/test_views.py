@@ -15,12 +15,12 @@ class ViewTestCase(TestCase):
         self.receptor_data = {"rut": "44444444-4", "razon_social": "razon social receptor"}
 
         self.response_emisor = self.client.post(
-            reverse('create_facturador'),
+            reverse('einvoice:create_facturador'),
             self.emisor_data,
             format="json")
 
         self.response_receptor = self.client.post(
-            reverse('create_facturador'),
+            reverse('einvoice:create_facturador'),
             self.receptor_data,
             format="json")
 
@@ -38,7 +38,7 @@ class ViewTestCase(TestCase):
         }
 
         self.response_factura = self.client.post(
-            reverse('create_factura'),
+            reverse('einvoice:create_factura'),
             self.facturaelectronica_data,
             format="json")
 

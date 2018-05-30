@@ -9,10 +9,9 @@ class Facturador(models.Model):
 	razon_social = models.CharField(max_length = 50)
 
 
-
 class FacturaElectronica(models.Model):
 	"""docstring for FacturaElectronica"""
-	
+
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	dte_version = models.CharField(max_length = 4)
 	document_id = models.CharField(max_length = 10)

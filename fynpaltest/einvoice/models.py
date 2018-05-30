@@ -8,6 +8,9 @@ class Facturador(models.Model):
 	rut = models.CharField(max_length = 10)
 	razon_social = models.CharField(max_length = 50)
 
+	def __unicode__(self):
+		return self.rut + ": " + self.razon_social 
+
 
 class FacturaElectronica(models.Model):
 	"""docstring for FacturaElectronica"""

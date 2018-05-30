@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from rest_framework.test import APIClient
@@ -10,12 +11,46 @@ class ViewTestCase(TestCase):
     def setUp(self):
         """Define the test client and other test variables."""
         self.client = APIClient()
-        self.facturaelectronica_data = {}
-        self.response = self.client.post(
+        self.emisor_data = {"rut": "22222222-2", "razon_social": "razon social emisor"}
+        self.receptor_data = {"rut": "44444444-4", "razon_social": "razon social receptor"}
+
+        self.response_emisor = self.client.post(
+            reverse('create_facturador'),
+            self.emisor_data,
+            format="json")
+
+        self.response_receptor = self.client.post(
+            reverse('create_facturador'),
+            self.receptor_data,
+            format="json")
+
+
+        self.facturaelectronica_data = {
+            "dte_version": "1.0",
+            "document_id": "FT12345",
+            "folio": 12345,
+            "fecha_emision": datetime.now(),
+            "emisor": int(self.response_emisor.data['id']),
+            "receptor": int(self.response_receptor.data['id']),
+            "tasa_iva": 17,
+            "monto_neto": 18,
+            "extra_data": ""
+        }
+
+        self.response_factura = self.client.post(
             reverse('create_factura'),
             self.facturaelectronica_data,
             format="json")
 
-    def test_api_can_create_a_facturaelectronica(self):
+    def test_api_can_create_emisor(self):
         """Test the api has creation capability."""
-        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(self.response_emisor.status_code, status.HTTP_201_CREATED)
+
+    def test_api_can_create_receptor(self):
+        """Test the api has creation capability."""
+        self.assertEqual(self.response_receptor.status_code, status.HTTP_201_CREATED)
+
+
+    def test_api_can_create_facturaelectronica(self):
+        """Test the api has creation capability."""
+        self.assertEqual(self.response_factura.status_code, status.HTTP_201_CREATED)

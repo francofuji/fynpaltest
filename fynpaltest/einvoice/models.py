@@ -9,7 +9,10 @@ class Facturador(models.Model):
 	razon_social = models.CharField(max_length = 50)
 
 	def __unicode__(self):
-		return self.rut + ": " + self.razon_social 
+		return self.rut + ": " + self.razon_social
+
+	def __str__(self):
+		return self.rut + ": " + self.razon_social
 
 
 class FacturaElectronica(models.Model):

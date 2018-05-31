@@ -1,0 +1,21 @@
+For get the application runnning
+
+You must have Python3 and Postgresl 9.4 installed.
+
+Install pip.
+
+Install virtualenv.
+
+Clone or download this repo.
+
+Create a virtual environment and activate it.
+
+Install requirements from requirements.txt in repo source.
+
+Config database settings in fynpaltest/config/settings/local_settings.py.
+
+Run database migrations.
+
+Run tests.
+
+Runserver.

@@ -1,3 +1,6 @@
 from django.contrib import admin
+from einvoice.models import Facturador, FacturaElectronica
 
-# Register your models here.
+
+admin.site.register(Facturador)
+admin.site.register(FacturaElectronica)
